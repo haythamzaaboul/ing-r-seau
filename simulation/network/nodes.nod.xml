@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes>
+    <!-- Route principale est-ouest -->
+    <node id="west"   x="-200.0" y="0.0" type="priority"/>
+    <node id="center" x="0.0"    y="0.0" type="priority"/>
+    <node id="east"   x="200.0"  y="0.0" type="priority"/>
+
+    <!-- Passage piéton nord-sud (intersecte la route au centre) -->
+    <node id="psouth" x="0.0" y="-50.0" type="priority"/>
+    <node id="pnorth" x="0.0" y="50.0"  type="priority"/>
+</nodes>

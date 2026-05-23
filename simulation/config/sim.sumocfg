@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file   value="../network/map.net.xml"/>
+        <route-files value="../network/routes.rou.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end   value="300"/>
+        <step-length value="0.1"/>
+    </time>
+    <report>
+        <no-step-log value="true"/>
+        <no-warnings  value="true"/>
+    </report>
+</configuration>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+    <!-- Route véhicules : 2 voies, 50 km/h (13.89 m/s) -->
+    <edge id="road_w2c" from="west"   to="center" numLanes="2" speed="13.89" priority="2"/>
+    <edge id="road_c2e" from="center" to="east"   numLanes="2" speed="13.89" priority="2"/>
+
+    <!-- Chemin piéton : traversée nord-sud, réservé aux piétons -->
+    <edge id="ped_s2n" from="psouth" to="pnorth" numLanes="1" speed="2.0"
+          allow="pedestrian" priority="1"/>
+</edges>

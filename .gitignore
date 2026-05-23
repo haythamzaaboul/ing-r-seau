@@ -1,0 +1,9 @@
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Fichiers générés
+simulation/network/map.net.xml
+resultats/
