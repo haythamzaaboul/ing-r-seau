@@ -1,0 +1,88 @@
+=================================================================
+  RAPPORT DE SIMULATION V2X — MAB UCB1
+  Date : 2026-05-23 03:27:05
+=================================================================
+
+PARAMETRES DU MODELE
+----------------------------------------
+  Frequence porteuse     : 5.9 GHz
+  Puissance TX           : 20.0 dBm
+  Sensibilite RX         : -85.0 dBm
+  Zone de danger         : carre +/-3.0 m autour de (0,0)
+  Seuil LOS/NLOS         : 50.0 m
+  Exposant perte LOS     : n = 2.5
+  Exposant perte NLOS    : n = 2.6
+  Ombrage LOS            : sigma = 4.0 dB
+  Ombrage NLOS           : sigma = 5.0 dB
+  Penalite NLOS          : 3.0 dB
+  Exposant perte RSU     : n = 2.2
+  Position RSU           : (0.0, 0.0)
+  Algorithme choix       : MAB UCB1
+  UCB_C                  : 1.0
+  Formule selection      : argmax Q(a) + 1.0*sqrt(ln(t)/N(a))
+
+RESULTATS GLOBAUX
+----------------------------------------
+  Paires V-P analysees   : 86094
+  Collisions detectees   : 62
+  Alertes emises         : 62
+  Taux succes MAB UCB    : 87.1%
+  Taux succes ideal      : 96.8%
+  Regret cumule          : 6 succes
+  Taux d'echec           : 12.9%
+
+DETAIL PAR CHEMIN - MAB UCB
+----------------------------------------
+  Direct LOS   :   1  (1.6%)
+  Direct NLOS  :   2  (3.2%)
+  Via RSU      :  51  (82.3%)
+  Echecs       :   8  (12.9%)
+
+DETAIL PAR CHEMIN - IDEAL ORACLE
+----------------------------------------
+  Direct LOS   :   5  (8.1%)
+  Direct NLOS  :  12  (19.4%)
+  Via RSU      :  43  (69.4%)
+  Echecs       :   2  (3.2%)
+
+ETAT FINAL DU MAB UCB
+----------------------------------------
+  Q(direct)              : 0.4286 | n=7
+  Q(via_rsu)             : 0.9273 | n=55
+  Bonus final direct     : 0.7678
+  Bonus final via_rsu    : 0.2739
+  UCB final direct       : 1.1964
+  UCB final via_rsu      : 1.2012
+  Total tirages          : 62
+
+TTC AU MOMENT DE LA DETECTION
+----------------------------------------
+  Moyen  : 9.27 s
+  Min    : 0.10 s
+  Max    : 15.75 s
+
+LATENCES
+----------------------------------------
+  Directe : moy=6.8 ms | med=7.1 ms | max=7.3 ms
+  Via RSU : moy=11.4 ms | med=11.2 ms | max=14.2 ms
+
+RSSI
+----------------------------------------
+  Succes  : moy=-77.9 dBm | min=-84.8 dBm
+  Echecs  : moy=-88.0 dBm | max=-85.5 dBm
+
+INTERPRETATION UCB
+----------------------------------------
+  Algorithme : MAB UCB1 avec c=1.0
+  Formule    : selectionner argmax Q(a) + c*sqrt(ln(t)/N(a))
+
+  Contrairement a eps-greedy, UCB explore de facon DETERMINISTE :
+  plus un bras est sous-explore, plus son bonus est grand.
+  Le bonus decroit automatiquement -> plus besoin de fixer epsilon.
+
+  Repartition finale : 7 tirages direct vs 55 tirages RSU
+  Bras dominant (Q max) : via_rsu
+
+  Regret = 6 succes manques par rapport a l'oracle.
+  -> Augmenter UCB_C pour plus d'exploration si regret eleve.
+  -> Diminuer UCB_C si l'agent sur-explore (regret stagne).

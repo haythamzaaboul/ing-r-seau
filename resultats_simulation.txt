@@ -1,0 +1,95 @@
+=================================================================
+  RAPPORT DE SIMULATION V2X — ITS-G5 / DSRC 5.9 GHz
+  Date : 2026-05-21 20:52:42
+=================================================================
+
+PARAMETRES DU MODELE
+----------------------------------------
+  Frequence porteuse     : 5.9 GHz
+  Puissance TX           : 20.0 dBm
+  Sensibilite RX         : -85.0 dBm
+  Zone de danger         : carre +/-3.0 m autour de (0,0)
+  Seuil LOS/NLOS         : 50.0 m
+  Exposant perte LOS     : n = 2.5
+  Exposant perte NLOS    : n = 2.6
+  Ombrage LOS            : sigma = 4.0 dB
+  Ombrage NLOS           : sigma = 5.0 dB
+  Penalite NLOS          : 3.0 dB
+  Exposant perte RSU     : n = 2.2
+  Position RSU           : (0.0, 0.0)
+  Algorithme choix       : MAB eps-greedy
+  EPS0                   : 1.0
+  Decroissance epsilon   : False
+
+RESULTATS GLOBAUX
+----------------------------------------
+  Paires V-P analysees   : 86094
+  Collisions detectees   : 62
+  Alertes emises         : 62
+  Taux succes MAB        : 77.4%
+  Taux succes ideal      : 95.2%
+  Regret cumule          : 11 succes
+  Taux d'echec           : 22.6%
+
+DETAIL PAR CHEMIN - MAB EPS-GREEDY
+----------------------------------------
+  Direct LOS   :   3  (4.8%)
+  Direct NLOS  :  15  (24.2%)
+  Via RSU      :  30  (48.4%)
+  Echecs       :  14  (22.6%)
+
+DETAIL PAR CHEMIN - IDEAL ORACLE
+----------------------------------------
+  Direct LOS   :   5  (8.1%)
+  Direct NLOS  :  13  (21.0%)
+  Via RSU      :  41  (66.1%)
+  Echecs       :   3  (4.8%)
+
+ETAT FINAL DU MAB
+----------------------------------------
+  Q(direct)    : 0.621 | n=29
+  Q(via_rsu)   : 0.909 | n=33
+  epsilon final: 1.000
+
+TTC AU MOMENT DE LA DETECTION
+----------------------------------------
+  Moyen  : 9.27 s
+  Min    : 0.10 s
+  Max    : 15.75 s
+
+LATENCES
+----------------------------------------
+  Directe : moy=6.4 ms | med=6.2 ms | max=7.8 ms
+  Via RSU : moy=11.8 ms | med=11.4 ms | max=14.6 ms
+
+RSSI
+----------------------------------------
+  Succes  : moy=-77.3 dBm | min=-84.7 dBm
+  Echecs  : moy=-89.3 dBm | max=-85.0 dBm
+
+INTERPRETATION
+----------------------------------------
+  Scenario : 15 vehicules (50 km/h, ouest->est) x 8 pietons
+  (0.9-1.5 m/s, sud->nord) sur 120 s.
+
+  Methode de detection : prediction TTC (Time-To-Collision).
+  Une alerte est envoyee quand les trajectoires predites se
+  croisent dans le carre +/-3.0 m autour de l'intersection.
+  Une seule alerte par collision, pas de spam continu.
+
+  TTC moyen a la detection : 9.27 s
+  -> Le systeme alerte en moyenne 9.3 s avant
+     que la collision ne se produise.
+
+  Latence directe (6.4 ms) bien inferieure
+  a la latence RSU (11.8 ms).
+  Les deux restent sous la limite ETSI de 50 ms.
+
+  14 echec(s) : surviennent en NLOS quand
+  direct ET RSU sont sous le seuil de sensibilite.
+  -> Candidats ideaux pour l'apprentissage MAB.
+
+  La selection effective utilise maintenant le MAB eps-greedy.
+  L'oracle ideal est conserve uniquement comme reference de comparaison,
+  car il utilise les probabilites de livraison direct/RSU indisponibles
+  au moment du choix dans un scenario reel.
